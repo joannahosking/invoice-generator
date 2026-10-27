@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+const password = import.meta.env.PUBLIC_INVOICE_PASSWORD ?? 'invoice';
+---
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0e1114" />
+    <meta name="robots" content="noindex" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Weekly invoice</title>
+  </head>
+  <body>
+    <main id="gate" data-pw={password}>
+      <h1>Weekly invoice</h1>
+      <div class="field">
+        <label for="pw">Password</label>
+        <input id="pw" type="password" autocomplete="off" autocapitalize="none" />
+      </div>
+      <p id="err" role="alert"></p>
+      <button id="go" class="primary">Open</button>
+    </main>
+
+    <main id="app" hidden>
+      <header>
+        <h1>Weekly invoice</h1>
+        <div class="field">
+          <label for="wk">Week starting (Monday)</label>
+          <input id="wk" type="date" />
+        </div>
+      </header>
+
+      <section>
+        <h2>Hours</h2>
+        <div id="days"></div>
+      </section>
+
+      <section>
+        <h2>Details</h2>
+        <div class="field"><label for="nm">Name</label><input id="nm" autocomplete="name" /></div>
+        <div class="field"><label for="loc">Site locations, comma separated</label><input id="loc" /></div>
+      </section>
+
+      <section>
+        <h2>Expenses</h2>
+        <div id="exp"></div>
+        <button id="addx" class="ghost">+ Add expense</button>
+      </section>
+
+      <section>
+        <details>
+          <summary>Rates and tax</summary>
+          <div class="grid3">
+            <div class="field"><label for="rate">Day rate £</label><input id="rate" inputmode="decimal" /></div>
+            <div class="field"><label for="full">Hours/day</label><input id="full" inputmode="decimal" /></div>
+            <div class="field"><label for="tax">Tax %</label><input id="tax" inputmode="decimal" /></div>
+          </div>
+        </details>
+      </section>
+
+      <section>
+        <h2>Preview</h2>
+        <pre id="out"></pre>
+      </section>
+
+      <div class="bar">
+        <div class="bar-total"><span>To pay + expenses</span><strong id="grand">£0</strong></div>
+        <button id="copy" class="primary">Copy invoice</button>
+      </div>
+    </main>
+
+    <script>
+      import '../scripts/app.js';
+    </script>
+  </body>
+</html>
